@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ShopContext } from "../context/ShopContext.jsx";
-import Counter from "../components/counter.jsx";
+import Counter from "../components/Counter.jsx";
 
 const ShoppingCartPage = () => {
   const { cartItems, removeFromCart } = useContext(ShopContext);
