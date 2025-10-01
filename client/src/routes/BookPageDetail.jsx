@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import TailwindSlider from "../components/SimpleSlider";
 import { ShopContext } from "../context/ShopContext";
-import Counter from "../components/counter";
+import Counter from "../components/Counter";
 
 const BookPageDetail = () => {
   const { workId } = useParams(); // like "works/OL12345W"
