@@ -43,7 +43,7 @@ const Navbar = () => {
       <div className="relative w-full">
         {/* Desktop list */}
         <div
-          className={`flex flex-row flex-wrap justify-around items-center gap-7 select-none max-w-screen ml-16 mr-16 h-[4vh] overflow-hidden lg:h-[4vh] hidden sm:flex ${
+          className={`flex-row flex-wrap justify-around items-center gap-7 select-none max-w-screen ml-16 mr-16 h-[4vh] overflow-hidden lg:h-[4vh] hidden sm:flex ${
             expanded && "h-fit"
           }`}
         >
