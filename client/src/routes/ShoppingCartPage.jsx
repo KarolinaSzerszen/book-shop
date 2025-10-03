@@ -14,12 +14,12 @@ const ShoppingCartPage = () => {
   };
 
   const total = cartItems.reduce((sum, item) => {
-    const qty = amounts[item.id] ?? item.quantity; // jeśli amounts[item.id] istnieje, używamy jej, inaczej quantity z cartItems
-    return sum + qty * 5; // 5$ za książkę
+    const qty = amounts[item.id] ?? item.quantity;
+    return sum + qty * 5;
   }, 0);
   return (
-    <div className="flex flex-row gap-4 ">
-      <div className="m-16 mr-4 bg-blue-100 flex flex-col  w-[50vw] ">
+    <div className="flex flex-col sm:flex-row gap-4 items-center">
+      <div className="m-16  bg-blue-100 flex flex-col  w-[80vw] sm:w-[50vw] ">
         {" "}
         {cartItems.length === 0 && (
           <div className="mt-10 text-center">
@@ -30,11 +30,11 @@ const ShoppingCartPage = () => {
         {cartItems.map((item) => (
           <div className="m-6 flex flex-row justify-between">
             {" "}
-            <div className="flex flex-row gap-8">
+            <div className="flex flex-col lg:flex-row gap-8 items-center">
               <img
                 src={`https://covers.openlibrary.org/b/id/${item.cover}-M.jpg`}
                 alt={item.id}
-                className="h-[30vh] w-[10vw] object-fit"
+                className="h-[240px] w-[160px] object-fit"
               />
               <div>
                 <h2>{item.title}</h2>
@@ -57,7 +57,7 @@ const ShoppingCartPage = () => {
         ))}
       </div>{" "}
       {/* Total */}
-      <div className="m-16 ml-2 h-40 bg-blue-100  w-[30vw] ">
+      <div className="m-16 ml-2 h-40 bg-blue-100  w-[30vw] self-end ">
         <h2 className="m-5">Amount of the purchase: {total}</h2>
         {/* total  of your purchase */}
         {/* Button to buy it  */}

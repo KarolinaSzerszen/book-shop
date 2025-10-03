@@ -138,24 +138,19 @@ const BookPageDetail = () => {
   //console.log(authors.map((a) => a.name));
   return (
     <div>
-      <div className="flex flex-row p-18 justify-center ">
+      <div className="flex flex-col md:flex-row p-18 justify-center ">
         {!loaded && (
           <div className="flex justify-center p-20 border-2 pl-30 pr-30 border-gray-300">
             <div className="h-[320px] w-[210px] bg-gray-200 animate-pulse rounded "></div>
           </div>
         )}
-
+        <h1 className="text-3xl font-bold mb-4 flex md:hidden">{book.title}</h1>
         {book.covers && book.covers.length > 0 ? (
-          <div
-            className={`flex justify-center p-20 border-2 pl-30 pr-30 border-gray-300 ${
-              loaded ? "block" : "hidden"
-            }`}
-          >
-            {" "}
+          <div className="mt-8 mb-8 lg:m-20 flex justify-center">
             <img
               src={`https://covers.openlibrary.org/b/id/${book.covers[0]}-M.jpg`}
               alt={book.title}
-              className={` h-[320px] w-[210px] object-fit  ${
+              className={`object-fit min-h-[400px] min-w-[300px] md:w-[380px] md:h-[520px] ${
                 loaded ? "block" : "hidden"
               }`}
               onLoad={() => setLoaded(true)}
@@ -167,7 +162,9 @@ const BookPageDetail = () => {
           </div>
         )}
         <div className="p-8 max-w-3xl mx-16 ">
-          <h1 className="text-3xl font-bold mb-4">{book.title}</h1>
+          <h1 className="text-3xl font-bold mb-4 hidden md:flex">
+            {book.title}
+          </h1>
           <div className="flex flex-row justify-start gap-4 mb-8">
             {authors.map((a) => (
               <p key={a.key}>{a.name}</p>
@@ -195,7 +192,7 @@ const BookPageDetail = () => {
             />
             {/* ends how many books */}
             <button
-              className="bg-blue-200 pr-6 pl-6 pt-1 pb-1 shadow-2xl hover:bg-blue-400"
+              className="bg-blue-200 w-30 shadow-2xl hover:bg-blue-400"
               onClick={() =>
                 addToCart(book.key, amount, book.covers?.[0], book.title)
               }
@@ -207,7 +204,7 @@ const BookPageDetail = () => {
       </div>
       <div className="p-18">
         <h2 className="text-2xl font-bold mb-4">Summary</h2>
-        <p> {getDescription(book.description)}</p>
+        <p className="text-xl"> {getDescription(book.description)}</p>
       </div>
       {/*From the same author.*/}
       {authors.length > 0 && (

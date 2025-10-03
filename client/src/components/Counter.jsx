@@ -24,13 +24,13 @@ const Counter = ({ onChange, startingNumber }) => {
   }
 
   return (
-    <div className=" flex flex-row gap-4 w-fit border-2">
-      <div className="p-1 border-r-2" onClick={handleMinus}>
+    <div className="flex flex-row gap-4 w-fit border-2 max-h-[44px]">
+      <div className="p-2 border-r-2" onClick={handleMinus}>
         -
       </div>
 
-      <div className="p-1">{amount}</div>
-      <div className="p-1  border-l-2" onClick={handlePlus}>
+      <div className="p-2 text-xl ">{amount}</div>
+      <div className="p-2  border-l-2" onClick={handlePlus}>
         +
       </div>
     </div>

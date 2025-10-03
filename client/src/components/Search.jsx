@@ -72,7 +72,7 @@ const Search = () => {
   }
 
   return (
-    <div ref={containerRef} className="relative w-70">
+    <div ref={containerRef} className="relative w-fit mr-2 sm:mr-10">
       <div className="flex flex-row">
         <input
           type="text"
