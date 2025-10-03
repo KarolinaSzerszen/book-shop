@@ -71,7 +71,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile list */}
-        <div ref={containerRef}>
+        <div ref={containerRef} className="z-10">
           <div
             className={`bg-blue-200 w-10 absolute h-6 right-0 top-8 z-10 flex ${
               expanded && "hidden"
@@ -87,7 +87,7 @@ const Navbar = () => {
             )}
           </div>
           <div
-            className={`flex flex-col items-center gap-4 absolute bg-blue-200 w-full sm:hidden h-fit p-10 transition-all ease-in-out
+            className={`flex flex-col items-center gap-4 absolute bg-blue-200 w-full sm:hidden h-fit p-10 transition-all ease-in-out z-30
                     ${expanded ? "-right-0" : " hidden"}`}
           >
             <div className="m-none " onClick={handleClick}>
