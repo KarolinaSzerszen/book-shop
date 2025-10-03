@@ -30,9 +30,10 @@ const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
   // 2️⃣ Add this useEffect to dynamically update slides on resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 480) setSlidesToShow(1);
-      else if (window.innerWidth <= 768) setSlidesToShow(2);
-      else if (window.innerWidth <= 1024) setSlidesToShow(3);
+      if (window.innerWidth <= 480) setSlidesToShow(3);
+      else if (window.innerWidth <= 768) setSlidesToShow(4);
+      else if (window.innerWidth <= 1024) setSlidesToShow(5);
+      else if (window.innerWidth <= 2000) setSlidesToShow(6);
       else setSlidesToShow(6);
     };
 
@@ -56,9 +57,9 @@ const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
 
   return (
     <div className="mb-8">
-      <div className="relative h-[20vh] flex items-center overflow-hidden bg-blue-200 bg-gradient-to-r from-blue-300 to-transparent">
+      <div className="relative h-[6vh] md:h-[10vh] 2xl:h-[14vh]  flex items-center overflow-hidden bg-blue-200 bg-gradient-to-r from-blue-300 to-transparent">
         {/* Text content */}
-        <p className="z-10 p-8 text-black text-2xl">{name}</p>
+        <p className="z-10 p-2 pl-4 text-black text-sm sm:text-2xl">{name}</p>
 
         {/* Image (fills right side) */}
         {img && (
@@ -76,7 +77,7 @@ const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
           <Slider {...settings}>
             {items.map((item) => (
               <div key={item} className="px-2">
-                <div className="bg-gray-300 rounded-xl h-[48vh] animate-pulse"></div>
+                <div className="bg-gray-300 rounded-xl h-[20vh] md:h-[30vh] 2xl:h-[44vh] animate-pulse"></div>
               </div>
             ))}
           </Slider>
@@ -89,7 +90,7 @@ const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
                 onClick={scrollToTop}
               >
                 <div key={book.key} className="px-2">
-                  <div className="rounded-xl h-[48vh] flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+                  <div className="rounded-xl h-[20vh] md:h-[30vh] 2xl:h-[44vh] flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300 relative overflow-hidden">
                     {book.cover_id ? (
                       <img
                         src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}

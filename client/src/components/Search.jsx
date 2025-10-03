@@ -94,7 +94,7 @@ const Search = () => {
           <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
         </svg>
       </div>
-      <div className="bg-blue-100 absolute h-fit max-h-80 w-[22vw] mt-7 overflow-y-scroll">
+      <div className="bg-blue-100 absolute h-fit max-h-80 w-[90vw] md:w-[22vw] mt-12 sm:mt-7 overflow-y-scroll z-10 -right-14 sm:right-0 ">
         {focus &&
           results.length > 0 &&
           results.map((book) => (

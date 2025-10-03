@@ -49,7 +49,7 @@ const BooksPage = () => {
           ? Array.from({ length: 10 }).map((_, i) => (
               <div
                 key={i}
-                className="h-90 bg-gray-200 animate-pulse rounded w-70"
+                className="h-90 bg-gray-200 animate-pulse rounded w-70 -z-10"
               />
             ))
           : data.map((book) => (

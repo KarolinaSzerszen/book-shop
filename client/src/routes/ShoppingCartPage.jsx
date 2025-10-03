@@ -18,11 +18,11 @@ const ShoppingCartPage = () => {
     return sum + qty * 5;
   }, 0);
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-center">
-      <div className="m-16  bg-blue-100 flex flex-col  w-[80vw] sm:w-[50vw] ">
+    <div className="flex flex-col sm:flex-row gap-4 items-center h-fit">
+      <div className="m-16  bg-blue-100 flex flex-col  w-[80vw] sm:w-[50vw] min-h-[30vh] ">
         {" "}
         {cartItems.length === 0 && (
-          <div className="mt-10 text-center">
+          <div className="mt-10 text-center h-20 m-6 lg:text-2xl">
             <h2>Cart empty. Add items to cart for them to show</h2>
           </div>
         )}{" "}
@@ -57,7 +57,7 @@ const ShoppingCartPage = () => {
         ))}
       </div>{" "}
       {/* Total */}
-      <div className="m-16 ml-2 h-40 bg-blue-100  w-[30vw] self-end ">
+      <div className="m-16 ml-2 h-40 bg-blue-100  w-[30vw] self-end lg:text-xl">
         <h2 className="m-5">Amount of the purchase: {total}</h2>
         {/* total  of your purchase */}
         {/* Button to buy it  */}

@@ -20,6 +20,7 @@ const BookPageDetail = () => {
   const [similarBooks, setSimilarBooks] = useState([]);
   const [amount, setAmount] = useState(1);
   const [startingNumber, setStartingNumber] = useState(1);
+  const [openSummary, setOpenSummary] = useState(false);
 
   const { addToCart } = useContext(ShopContext);
   useEffect(() => {
@@ -132,7 +133,10 @@ const BookPageDetail = () => {
   }
 
   if (!book) return <div className="p-8">Loading...</div>;
-
+  function handleClick() {
+    setOpenSummary((prev) => !prev);
+    console.log(openSummary);
+  }
   //let subject = book.subjects[0];
   //console.log(subject);
   //console.log(authors.map((a) => a.name));
@@ -140,8 +144,8 @@ const BookPageDetail = () => {
     <div>
       <div className="flex flex-col md:flex-row p-18 justify-center ">
         {!loaded && (
-          <div className="flex justify-center p-20 border-2 pl-30 pr-30 border-gray-300">
-            <div className="h-[320px] w-[210px] bg-gray-200 animate-pulse rounded "></div>
+          <div className="">
+            <div className="object-fit min-h-[400px] min-w-[300px] md:w-[380px] md:h-[520px]  bg-gray-200 animate-pulse rounded "></div>
           </div>
         )}
         <h1 className="text-3xl font-bold mb-4 flex md:hidden">{book.title}</h1>
@@ -161,7 +165,7 @@ const BookPageDetail = () => {
             No cover available
           </div>
         )}
-        <div className="p-8 max-w-3xl mx-16 ">
+        <div className="p-2 max-w-3xl md:ml-10 ">
           <h1 className="text-3xl font-bold mb-4 hidden md:flex">
             {book.title}
           </h1>
@@ -171,9 +175,9 @@ const BookPageDetail = () => {
             ))}
           </div>
           <div className="m-8">
-            <h2>5$</h2>
+            <h2 className="text-xl">5$</h2>
           </div>
-          <div className="flex flex-row justify-around gap-16">
+          <div className="flex flex-row justify-around gap-12">
             {/* How many books */}
             {/*<div className=" flex flex-row gap-4 w-fit border-2">
               <div className="p-1 border-r-2" onClick={handleMinus}>
@@ -202,9 +206,23 @@ const BookPageDetail = () => {
           </div>
         </div>
       </div>
-      <div className="p-18">
-        <h2 className="text-2xl font-bold mb-4">Summary</h2>
-        <p className="text-xl"> {getDescription(book.description)}</p>
+      <div className="pt-18 pr-4 pl-4 pb-18 md:mr-10 md:ml-10">
+        <h2 className="text-2xl font-bold mb-4 ">Summary</h2>
+        <div className="h-fit">
+          <div
+            className={`${openSummary ? "h-fit" : "h-[10vh] overflow-hidden"} `}
+          >
+            <p className="text-xl"> {getDescription(book.description)}</p>
+          </div>
+          {getDescription(book.description).length > 500 && (
+            <button
+              className="h-fit w-full bg-gray-200 hover:bg-gray-300 mt-4"
+              onClick={handleClick}
+            >
+              {openSummary ? "Hide summary" : "Show more"}
+            </button>
+          )}
+        </div>
       </div>
       {/*From the same author.*/}
       {authors.length > 0 && (

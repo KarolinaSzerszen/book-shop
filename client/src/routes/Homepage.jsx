@@ -56,25 +56,29 @@ const Homepage = () => {
     <div>
       {/* Image and Motivating message */}
 
-      <div className="flex flex-row justify-center mt-4 sm:ml-16 ">
-        <img
-          src={frontImg}
-          alt="An open book"
-          className=" w-[90vw] sm:w-[70vw] h-90 object-cover"
-        />
+      <div className="flex flex-row justify-center mt-4 ml-10 sm:ml-16  md:mt-16 overflow-hidden">
+        <div>
+          <img
+            src={frontImg}
+            alt="An open book"
+            className=" w-[70vw]  h-30 sm:h-90 object-cover 
+    "
+          />
+        </div>
+
         {/*<div className="-ml-70 bg-stone-100 h-fit mt-8">
           <p className="navbar_font ml-4">
             Never hesitate to glimpse behind the veil of your understanding.
           </p>
         </div>*/}
-        <div className="-ml-70 bg-stone-100 h-fit mt-8">
+        <div className="-ml-20 sm:-ml-70 bg-stone-100 h-fit mt-8">
           <p className="navbar_font ml-4">
             Never hesitate to glimpse behind the veil of your understanding.
           </p>
         </div>
       </div>
       {/* Book categories */}
-      <div className="mt-16">
+      <div className="mt-10 md:mt-16">
         {/* New */}
 
         {/* Tiles with books */}
