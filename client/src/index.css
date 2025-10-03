@@ -13,3 +13,15 @@ body {
   font-style: normal;
   font-size: 3vw;
 }
+
+@media (max-width: 1024px) {
+  .navbar_font {
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 760px) {
+  .navbar_font {
+    font-size: 4.6vw;
+  }
+}

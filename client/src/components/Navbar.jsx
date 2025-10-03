@@ -39,11 +39,14 @@ const Navbar = () => {
     setExpanded((prev) => !prev);
   }
   return (
-    <div className="flex flex-col items-center justify-center h-fit max-w-screen bg-blue-200 gap-4 pb-1 shadow-sm relative">
+    <div className="flex flex-col items-center justify-center h- h-fit max-w-screen bg-blue-200 gap-4 pb-1 shadow-sm relative">
       {/* Top layer */}
       <div className="flex flex-row justify-between items-center bg-blue-100 w-screen px-4 py-1 lg:py-5">
         <Link to="/" className="navbar_font ml-[4vw] select-none">
-          <h1 className="text-xl md:text-4xl">Reach for Knowledge</h1>
+          <h1 className="text-xl md:text-4xl hidden sm:flex">
+            Reach for Knowledge
+          </h1>
+          <h1 className="text-xl md:text-4xl flex sm:hidden">RFK</h1>
         </Link>
         <div className="flex flex-row items-center gap-1 mr-2 md:mr-6">
           <Search />
