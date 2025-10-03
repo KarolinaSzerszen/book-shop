@@ -61,7 +61,7 @@ const Homepage = () => {
           <img
             src={frontImg}
             alt="An open book"
-            className=" w-[100vw]  h-40 sm:h-90 object-cover sm:w-[80vw] sm:ml-4 sm:mt-4
+            className=" w-[100vw]  h-40 sm:h-90 object-cover sm:w-[60vw] sm:ml-8 sm:mt-6
     "
           />
         </div>
