@@ -25,22 +25,31 @@ const Arrow = ({ className, style, onClick, direction }) => {
 };
 
 const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
+  const [slidesToShow, setSlidesToShow] = useState(6);
+
+  // 2️⃣ Add this useEffect to dynamically update slides on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 480) setSlidesToShow(1);
+      else if (window.innerWidth <= 768) setSlidesToShow(2);
+      else if (window.innerWidth <= 1024) setSlidesToShow(3);
+      else setSlidesToShow(6);
+    };
+
+    handleResize(); // initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 3️⃣ Then use the state in your slider settings
   const settings = {
-    infinite: true,
-    slidesToShow: 6,
+    slidesToShow,
     swipeToSlide: true,
-    centerMode: true,
+    infinite: true,
+    centerMode: slidesToShow > 2, // only enable centerMode on desktop
     centerPadding: "0px",
     prevArrow: <Arrow direction="left" />,
     nextArrow: <Arrow direction="right" />,
-    responsive: [
-      { breakpoint: 1920, settings: { slidesToShow: 6 } },
-      { breakpoint: 1440, settings: { slidesToShow: 5 } },
-      { breakpoint: 1200, settings: { slidesToShow: 4 } },
-      { breakpoint: 1024, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2, centerMode: false } },
-      { breakpoint: 480, settings: { slidesToShow: 1, centerMode: false } },
-    ],
   };
 
   const items = Array.from({ length: 6 }, (_, i) => i + 1);
