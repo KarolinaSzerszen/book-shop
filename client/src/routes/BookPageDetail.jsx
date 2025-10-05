@@ -142,19 +142,21 @@ const BookPageDetail = () => {
   //console.log(authors.map((a) => a.name));
   return (
     <div>
-      <div className="flex flex-col md:flex-row p-18 justify-center ">
+      <div className="flex flex-col md:flex-row p-14 sm:p-18 justify-center ">
         {!loaded && (
           <div className="">
             <div className="object-fit min-h-[400px] min-w-[300px] md:w-[380px] md:h-[520px]  bg-gray-200 animate-pulse rounded "></div>
           </div>
         )}
-        <h1 className="text-3xl font-bold mb-4 flex md:hidden">{book.title}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold  md:mb-4 flex md:hidden">
+          {book.title}
+        </h1>
         {book.covers && book.covers.length > 0 ? (
           <div className="mt-8 mb-8 lg:m-20 flex justify-center">
             <img
               src={`https://covers.openlibrary.org/b/id/${book.covers[0]}-M.jpg`}
               alt={book.title}
-              className={`object-fit min-h-[400px] min-w-[300px] md:w-[380px] md:h-[520px] ${
+              className={`object-fit min-h-[260px] min-w-[180px] md:w-[380px] md:h-[520px] ${
                 loaded ? "block" : "hidden"
               }`}
               onLoad={() => setLoaded(true)}
@@ -177,7 +179,7 @@ const BookPageDetail = () => {
           <div className="m-8">
             <h2 className="text-xl">5$</h2>
           </div>
-          <div className="flex flex-row justify-around gap-12">
+          <div className="flex flex-row justify-around gap-6 sm:gap-12">
             {/* How many books */}
             {/*<div className=" flex flex-row gap-4 w-fit border-2">
               <div className="p-1 border-r-2" onClick={handleMinus}>
@@ -196,7 +198,7 @@ const BookPageDetail = () => {
             />
             {/* ends how many books */}
             <button
-              className="bg-blue-200 w-30 shadow-2xl hover:bg-blue-400"
+              className="bg-blue-200 w-30 shadow-2xl hover:bg-blue-400 "
               onClick={() =>
                 addToCart(book.key, amount, book.covers?.[0], book.title)
               }
