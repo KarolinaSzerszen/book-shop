@@ -76,7 +76,7 @@ const Navbar = () => {
         {/* Mobile list */}
         <div ref={containerRef} className="z-10">
           <div
-            className={`bg-blue-200 w-10 absolute h-6 right-0 top-8 z-10 flex ${
+            className={`bg-blue-200 w-10 absolute h-6 right-0 top-8 z-10 sm:hidden flex ${
               expanded && "hidden"
             }`}
             onClick={handleClick}

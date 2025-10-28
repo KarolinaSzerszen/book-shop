@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { cloneElement } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useBookContext } from "../context/BookContext";
 
 const BooksPage = () => {
   const { category } = useParams();
+  const { recentBooks, setRecentBooks } = useBookContext();
 
   //async function fetchBooks(category) {
   //  const res = await fetch(
@@ -25,6 +27,12 @@ const BooksPage = () => {
       first_publish_year: book.first_publish_year,
       cover_id: book.cover_i,
     }));
+  }
+
+  function handleBookClick(bookId) {
+    setRecentBooks((prev) =>
+      [bookId, ...prev.filter((b) => b !== bookId)].slice(0, 10)
+    );
   }
 
   function capitalizeFirstLetter(val) {
@@ -53,7 +61,11 @@ const BooksPage = () => {
               />
             ))
           : data.map((book) => (
-              <Link key={book.key} to={`/books${book.key}`}>
+              <Link
+                key={book.key}
+                to={`/books${book.key}`}
+                onClick={() => handleBookClick(book.key)}
+              >
                 <div
                   key={book.key}
                   className="p-4 bg-white rounded shadow w-70 hover:scale-95 select-none"

@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import TailwindSlider from "../components/SimpleSlider";
 import { ShopContext } from "../context/ShopContext";
 import Counter from "../components/Counter";
+import CartSlider from "../components/CartSlider";
 
 const BookPageDetail = () => {
   const { workId } = useParams(); // like "works/OL12345W"
@@ -21,8 +22,10 @@ const BookPageDetail = () => {
   const [amount, setAmount] = useState(1);
   const [startingNumber, setStartingNumber] = useState(1);
   const [openSummary, setOpenSummary] = useState(false);
+  const [cartSlideOpen, setCartSlideOpen] = useState(false);
 
   const { addToCart } = useContext(ShopContext);
+
   useEffect(() => {
     async function fetchBook() {
       const res = await fetch(`https://openlibrary.org/works/${workId}.json`);
@@ -59,6 +62,29 @@ const BookPageDetail = () => {
   useEffect(() => {
     setStartingNumber(1);
   }, [workId]);
+
+  useEffect(() => {
+    const handleScrollLock = () => {
+      const isLargeScreen = window.matchMedia("(min-width: 768px)").matches;
+
+      if (isLargeScreen && cartSlideOpen) {
+        document.body.style.overflow = "hidden"; // freeze background
+      } else {
+        document.body.style.overflow = "auto"; // restore scroll
+      }
+    };
+
+    handleScrollLock(); // run on mount + whenever cartSlideOpen changes
+
+    // Re-run if screen is resized and crosses breakpoint
+    const resizeListener = () => handleScrollLock();
+    window.addEventListener("resize", resizeListener);
+
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("resize", resizeListener);
+    };
+  }, [cartSlideOpen]);
 
   async function fetchAuthors(book) {
     if (!book?.authors) return [];
@@ -97,7 +123,7 @@ const BookPageDetail = () => {
 
   async function fetchSimilarBooks(book) {
     if (!book?.subjects?.length) return [];
-    console.log(book.subjects[1]);
+    //console.log(book.subjects[1]);
     const resSimilBooks = await fetch(
       `https://openlibrary.org/search.json?q=${encodeURIComponent(
         book.subjects[1]
@@ -111,6 +137,7 @@ const BookPageDetail = () => {
       .map((book) => ({
         key: book.key,
         cover_id: book.cover_i,
+        title: book.title,
       }));
   }
   //async function getTotal(num) {
@@ -135,13 +162,24 @@ const BookPageDetail = () => {
   if (!book) return <div className="p-8">Loading...</div>;
   function handleClick() {
     setOpenSummary((prev) => !prev);
-    console.log(openSummary);
+    //console.log(openSummary);
   }
   //let subject = book.subjects[0];
   //console.log(subject);
   //console.log(authors.map((a) => a.name));
+
   return (
-    <div>
+    <div className={`relative ${!cartSlideOpen && "overflow-hidden"}`}>
+      <CartSlider
+        cartState={cartSlideOpen}
+        setCartSlideOpen={setCartSlideOpen}
+        bookImg={book.covers}
+        title={book.title}
+        authors={authors}
+        amount={amount}
+        thisId={workId}
+        similarBooks={similarBooks}
+      />
       <div className="flex flex-col md:flex-row p-14 sm:p-18 justify-center ">
         {!loaded && (
           <div className="">
@@ -199,9 +237,10 @@ const BookPageDetail = () => {
             {/* ends how many books */}
             <button
               className="bg-blue-200 w-30 shadow-2xl hover:bg-blue-400 "
-              onClick={() =>
-                addToCart(book.key, amount, book.covers?.[0], book.title)
-              }
+              onClick={() => {
+                addToCart(book.key, amount, book.covers?.[0], book.title);
+                setCartSlideOpen(true);
+              }}
             >
               Add to Cart
             </button>

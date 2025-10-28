@@ -10,6 +10,7 @@ import BookPageDetail from "./routes/BookPageDetail.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ShoppingCartPage from "./routes/ShoppingCartPage.jsx";
 import ShopContextProvider from "./context/ShopContext.jsx";
+import { BookProvider } from "./context/BookContext.jsx";
 
 const queryClient = new QueryClient();
 
@@ -41,7 +42,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ShopContextProvider>
-        <RouterProvider router={router} />
+        <BookProvider>
+          <RouterProvider router={router} />
+        </BookProvider>
       </ShopContextProvider>
     </QueryClientProvider>
   </StrictMode>

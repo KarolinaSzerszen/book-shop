@@ -3,11 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useBookContext } from "../context/BookContext";
 // Custom Arrow Components
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-};
 
 const Arrow = ({ className, style, onClick, direction }) => {
   return (
@@ -26,7 +23,7 @@ const Arrow = ({ className, style, onClick, direction }) => {
 
 const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
   const [slidesToShow, setSlidesToShow] = useState(6);
-
+  const { recentBooks, setRecentBooks } = useBookContext();
   // 2️⃣ Add this useEffect to dynamically update slides on resize
   useEffect(() => {
     const handleResize = () => {
@@ -54,7 +51,12 @@ const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
   };
 
   const items = Array.from({ length: 6 }, (_, i) => i + 1);
-
+  function handleBookClick(bookId) {
+    setRecentBooks((prev) =>
+      [bookId, ...prev.filter((b) => b !== bookId)].slice(0, 10)
+    );
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }
   return (
     <div className="mb-8">
       <div className="relative h-[6vh] md:h-[10vh] 2xl:h-[14vh]  flex items-center overflow-hidden bg-blue-200 bg-gradient-to-r from-blue-300 to-transparent">
@@ -87,7 +89,9 @@ const TailwindSlider = ({ books = [], isLoading = false, name, img }) => {
               <Link
                 key={book.key}
                 to={`/books${book.key}`}
-                onClick={scrollToTop}
+                onClick={() => {
+                  handleBookClick(book.key);
+                }}
               >
                 <div key={book.key} className="px-2">
                   <div className="rounded-xl h-[20vh] md:h-[30vh] 2xl:h-[44vh] flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300 relative overflow-hidden">
