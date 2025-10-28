@@ -63,7 +63,7 @@ function CartSlider({
   return (
     <div
       ref={cartRef}
-      className={`bg-blue-200 w-[80vw]  h-fit sm:w-[50vw] sm:h-[100vh] pb-4 absolute -right-[80vw] sm:-right-[50vw] -top-26 sm:-top-40 bottom-0 z-22 flex flex-col items-center gap-6 ${
+      className={`bg-blue-200 w-[80vw]  h-fit sm:w-[50vw] sm:h-[100vh] pb-4 absolute sm:fixed -right-[80vw] sm:-right-[50vw] -top-26 sm:-top-0  bottom-0 z-22 flex flex-col items-center gap-6 ${
         cartState
           ? "transform -translate-x-full transition-transform duration-500"
           : "hidden"
