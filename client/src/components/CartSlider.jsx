@@ -13,7 +13,7 @@ function CartSlider({
   similarBooks,
 }) {
   const [books, setBooks] = useState([]);
-  console.log("Similar:", similarBooks);
+  //console.log("Similar:", similarBooks);
   const cartRef = useRef();
   const { recentBooks } = useBookContext();
   useEffect(() => {
@@ -57,9 +57,9 @@ function CartSlider({
     };
     fetchBookDetails();
   }, [recentBooks, thisId]);
-  console.log("This is it: ", books);
-  console.log("This is context: ", recentBooks);
-  console.log("this is thisId: ", thisId);
+  //console.log("This is it: ", books);
+  //console.log("This is context: ", recentBooks);
+  //console.log("this is thisId: ", thisId);
   return (
     <div
       ref={cartRef}

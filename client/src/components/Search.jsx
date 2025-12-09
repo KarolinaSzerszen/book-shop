@@ -59,7 +59,7 @@ const Search = () => {
             ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
             : null,
         }));
-        console.log("New results:", newArray);
+        //console.log("New results:", newArray);
         setResults(newArray);
       } catch (err) {
         if (err.name === "AbortError") {

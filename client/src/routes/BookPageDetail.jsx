@@ -40,14 +40,16 @@ const BookPageDetail = () => {
   }, [workId]);
 
   useEffect(() => {
+    if (!book || authors.length === 0) return;
+
     async function loadAuthorBooks() {
       setIsLoadingAuthorBooks(true);
-      const fetchedAuthorBooks = await fetchAuthorBooks(book);
+      const fetchedAuthorBooks = await fetchAuthorBooks(book, authors);
       setAuthorBooks(fetchedAuthorBooks);
       setIsLoadingAuthorBooks(false);
     }
     loadAuthorBooks();
-  }, [book]);
+  }, [book, authors]);
 
   useEffect(() => {
     async function loadSimilarBooks() {
@@ -99,25 +101,23 @@ const BookPageDetail = () => {
     return Promise.all(authorPromise);
   }
 
-  async function fetchAuthorBooks(book) {
-    if (!book?.authors?.length) return [];
-    const authorKey = book.authors[0].author.key;
-    const resAuthBook = await fetch(
-      `https://openlibrary.org/search.json?author=${encodeURIComponent(
-        authorKey
-      )}&limit=20`
-    );
-    const authBookData = await resAuthBook.json();
-    const filteredAuthorBooks = authBookData.docs.filter(
-      (b) => b.key !== book.key
-    );
+  async function fetchAuthorBooks(book, authors) {
+    if (!authors?.length) return [];
 
-    return (filteredAuthorBooks || [])
-      .filter((b) => b.cover_i)
-      .slice(1, 9)
-      .map((book) => ({
-        key: book.key,
-        cover_id: book.cover_i,
+    const authorKey = authors[0].key; // np: "/authors/OL23919A"
+
+    const res = await fetch(
+      `https://openlibrary.org${authorKey}/works.json?limit=20`
+    );
+    const data = await res.json();
+
+    return (data.entries || [])
+      .filter((b) => b.key !== book.key)
+      .filter((b) => b.covers && b.covers.length > 0)
+      .slice(0, 8)
+      .map((b) => ({
+        key: b.key,
+        cover_id: b.covers[0],
       }));
   }
 
@@ -151,6 +151,9 @@ const BookPageDetail = () => {
   //async function handlePlus() {
   //  setAmount(amount + 1);
   //}
+  console.log("author books :", authorBooks);
+  console.log("authors:", authors);
+  console.log("authorName:", authors[0]?.name);
 
   function getDescription(desc) {
     if (!desc) {
@@ -266,7 +269,7 @@ const BookPageDetail = () => {
         </div>
       </div>
       {/*From the same author.*/}
-      {authors.length > 0 && (
+      {authors.length > 0 && authorBooks.length > 0 && (
         <TailwindSlider
           isLoading={isLoadingAuthorBooks}
           name={`Other books written by  ${authors[0].name}`}
